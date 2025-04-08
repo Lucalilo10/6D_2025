@@ -3,426 +3,973 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <title>Main Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+    <title>Class Connect | Main Page</title>
     <style>
-          body {
-              background-color: #121212;
-              color: #ffffff;
-              font-family: 'Roboto', sans-serif;
-              margin: 0;
-              padding: 20px;
-              overflow-x: hidden;
-          }
-
-          .container {
-              max-width: 600px;
-              margin: auto;
-              padding: 20px;
-              background-color: #1e1e1e;
-              border-radius: 10px;
-              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-              position: relative;
-              animation: fadeIn 1s ease-in-out;
-          }
-
-          @keyframes fadeIn {
-              from {
-                  opacity: 0;
-              }
-
-              to {
-                  opacity: 1;
-              }
-          }
-
-          h1 {
-              color: #03a9f4;
-              text-align: center;
-              animation: slideIn 1s ease-in-out;
-          }
-
-          @keyframes slideIn {
-              from {
-                  transform: translateY(-20px);
-                  opacity: 0;
-              }
-
-              to {
-                  transform: translateY(0);
-                  opacity: 1;
-              }
-          }
-
-          .search-bar {
-              width: 100%;
-              padding: 15px 5px;
-              border: 2px solid #03a9f4;
-              border-radius: 20px;
-              background-color: #333;
-              color: #ffffff;
-              font-size: 16px;
-              outline: none;
-              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-              transition: border-color 0.3s ease, background-color 0.3s ease;
-          }
-
-          .search-bar::placeholder {
-              color: #b0bec5;
-          }
-
-          .search-bar:focus {
-              border-color: #ffeb3b;
-              background-color: #444;
-          }
-
-          .student-info, .teacher-info, .the-owner {
-              display: flex;
-              align-items: center;
-              background-color: #1e1e1e;
-              border: 1px solid #03a9f4;
-              border-radius: 10px;
-              padding: 15px;
-              margin-bottom: 20px;
-              transition: background-color 0.3s ease, box-shadow 0.3s ease;
-          }
-
-          .student-info:hover, .teacher-info:hover, .the-owner:hover {
-              background-color: #333;
-              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-          }
-          .the-owner img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 3px solid #03a9f4;
-            margin-right: 15px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+         :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --secondary: #0b78f5;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --gray: #94a3b8;
+            --success: #10b981;
+            --danger: #ef4444;
+            --card-bg: #1e293b;
         }
-          .student-info img, .teacher-info img {
-              width: 120px;
-              height: 120px;
-              border-radius: 50%;
-              border: 3px solid #03a9f4;
-              margin-right: 15px;
-              transition: transform 0.3s ease, box-shadow 0.3s ease;
-          }
-
-          .student-info img:hover, .teacher-info img:hover, .the-owner img:hover {
-              transform: scale(1.1);
-              box-shadow: 0 0 10px #03a9f4;
-          }
-
-          .student-info div, .teacher-info div, .the-owner div {
-              flex: 1;
-          }
-
-          .student-info b, .teacher-info b, .the-owner b {
-              font-size: 1.2em;
-              color: #ffeb3b;
-          }
-
-          .student-info a, .teacher-info a, .the-owner a {
-              color: #03a9f4;
-              text-decoration: none;
-              transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
-          }
-
-          .student-info a:hover, .teacher-info a:hover, .the-owner a:hover {
-              color: #ffeb3b;
-              text-shadow: 0 0 10px #ffeb3b;
-              transform: scale(1.1);
-          }
-
-          #controlsContainer {
-              position: fixed;
-              top: 20px;
-              right: 20px;
-              display: flex;
-              gap: 10px;
-              z-index: 1000;
-          }
-
-          #playButton, #playlistButton, #restartButton {
-              background-color: #333;
-              border: 2px solid #03a9f4;
-              color: #fff;
-              padding: 15px 25px;
-              text-align: center;
-              text-decoration: none;
-              font-size: 16px;
-              cursor: pointer;
-              border-radius: 1000px;
-              box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-              transition: background-color 0.3s, border-color 0.3s, color 0.3s;
-          }
-
-          #playButton:hover, #playlistButton:hover, #restartButton:hover {
-              background-color: #03a9f4;
-              border-color: #03a9f4;
-              color: #121212;
-          }
-
-          #playButton:active, #playlistButton:active, #restartButton:active {
-              background-color: #0288d1;
-          }
-
-          #playlist {
-              display: none;
-              position: fixed;
-              top: 80px;
-              right: 20px;
-              background-color: #333;
-              border: 2px solid #03a9f4;
-              border-radius: 10px;
-              box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-              color: #fff;
-              padding: 10px;
-              width: 200px;
-              z-index: 1000;
-          }
-
-          #playlist ul {
-              list-style: none;
-              padding: 0;
-              margin: 0;
-          }
-
-          #playlist ul li {
-              padding: 10px;
-              border-bottom: 1px solid #444;
-              cursor: pointer;
-              transition: background-color 0.3s;
-          }
-
-          #playlist ul li:hover {
-              background-color: #03a9f4;
-              color: #121212;
-          }
-
-          #timelineContainer {
-              position: fixed;
-              right: 20px;
-              top: 120px;
-              width: 220px;
-              z-index: 900;
-          }
-
-          #timeline {
-              width: 100%;
-              cursor: pointer;
-          }
-          #volumeButton {
-              background-color: #333;
-              border: 2px solid #03a9f4;
-              color: #fff;
-              padding: 15px 20px;
-              text-align: center;
-              text-decoration: none;
-              font-size: 16px;
-              cursor: pointer;
-              border-radius: 50%;
-              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-              transition: background-color 0.3s, border-color 0.3s, color 0.3s;
-          }
-
-          #volumeButton:hover {
-              background-color: #03a9f4;
-              border-color: #03a9f4;
-              color: #121212;
-          }
-
-          #volumeButton:active {
-              background-color: #0288d1;
-          }
-
-      </style>
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f0f1a, #1a1a2e);
+            color: var(--light);
+            font-family: 'Cairo', 'Poppins', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        /* Particle background */
+        
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+        /* Glowing gradient overlay */
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(0, 217, 255, 0.1) 0%, rgba(255, 0, 170, 0.05) 50%, transparent 70%);
+            animation: rotateGradient 30s linear infinite;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            z-index: -1;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        h1 {
+            color: var(--primary-light);
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            font-weight: 600;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+        
+        .search-container {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        
+        .search-bar {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            padding-left: 3.5rem;
+            border: none;
+            border-radius: 50px;
+            background: rgba(15, 23, 42, 0.7);
+            color: var(--light);
+            font-size: 1rem;
+            outline: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .search-bar::placeholder {
+            color: var(--gray);
+        }
+        
+        .search-bar:focus {
+            background: rgba(15, 23, 42, 0.9);
+            box-shadow: 0 5px 20px rgba(99, 102, 241, 0.3);
+            border-color: var(--primary);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            transition: color 0.3s ease;
+        }
+        
+        .search-bar:focus+.search-icon {
+            color: var(--primary);
+        }
+        
+        .profiles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .profile-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            transition: all 0.3s ease;
+        }
+        
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+        
+        .profile-card:hover::before {
+            width: 8px;
+        }
+        
+        .profile-card.student::before {
+            background: linear-gradient(to bottom, var(--primary), var(--primary-light));
+        }
+        
+        .profile-card.teacher::before {
+            background: linear-gradient(to bottom, var(--secondary), #f97316);
+        }
+        
+        .profile-card.owner::before {
+            background: linear-gradient(to bottom, #ec4899, #d946ef);
+        }
+        
+        .profile-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary);
+            margin-right: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .profile-card:hover .profile-img {
+            transform: scale(1.1);
+            border-color: var(--secondary);
+            box-shadow: 0 0 20px rgba(247, 0, 255, 0.527);
+        }
+        
+        .profile-info {
+            flex: 1;
+        }
+        
+        .profile-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--light);
+            background: linear-gradient(90deg, var(--primary-light), var(--light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline;
+        }
+        
+        .profile-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            background: rgba(99, 102, 241, 0.1);
+        }
+        
+        .profile-link:hover {
+            color: var(--light);
+            background: var(--primary);
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+        
+        .profile-link i {
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .profile-link:hover i {
+            transform: translateX(3px);
+        }
+        
+        .profile-role {
+            display: inline-block;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.8rem;
+            border-radius: 50px;
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--secondary);
+            margin-left: 0.5rem;
+            vertical-align: middle;
+        }
+        /* Music Player Styles */
+        
+        #musicPlayer {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            width: 350px;
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+        
+        .player-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .player-title {
+            font-size: 1rem;
+            color: var(--light);
+            font-weight: 600;
+        }
+        
+        .player-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .current-song {
+            font-size: 0.9rem;
+            color: var(--light);
+            margin-left: 1rem;
+        }
+        
+        .player-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .control-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: var(--light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .control-btn:hover {
+            background: var(--primary);
+            transform: scale(1.1);
+        }
+        
+        .control-btn.main {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+        }
+        
+        .control-btn.main:hover {
+            background: var(--primary-light);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+        }
+        
+        .timeline-container {
+            margin-bottom: 1rem;
+        }
+        
+        .timeline {
+            width: 100%;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            width: 0%;
+            border-radius: 5px;
+            transition: width 0.1s linear;
+        }
+        
+        .time-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: 0.3rem;
+        }
+        
+        #playlist {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 1rem;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.5rem;
+        }
+        
+        #playlist::-webkit-scrollbar {
+            width: 5px;
+        }
+        
+        #playlist::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        #playlist::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 5px;
+        }
+        
+        .playlist-item {
+            padding: 0.7rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .playlist-item:hover {
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--light);
+        }
+        
+        .playlist-item.active {
+            background: var(--primary);
+            color: var(--light);
+            font-weight: 500;
+        }
+        
+        .volume-control {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+        }
+        
+        .volume-slider {
+            flex: 1;
+            margin-left: 0.5rem;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            cursor: pointer;
+            appearance: none;
+        }
+        
+        .volume-slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: var(--light);
+            cursor: pointer;
+        }
+        /* Floating particles */
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            pointer-events: none;
+        }
+        /* Responsive adjustments */
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+            .profiles-grid {
+                grid-template-columns: 1fr;
+            }
+            #musicPlayer {
+                width: calc(100% - 2rem);
+                right: 1rem;
+                bottom: 1rem;
+            }
+        }
+        
+        .minimize-btn {
+            background: rgba(255, 255, 255, 0.1);
+            width: 30px;
+            height: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .minimize-btn:hover {
+            background: var(--primary);
+        }
+        
+        #musicPlayer.minimized {
+            transform: translateY(calc(100% - 40px));
+        }
+        
+        #musicPlayer.minimized .player-content {
+            display: none;
+        }
+        
+        .player-content {
+            transition: all 0.3s ease;
+        }
+        
+        .maximize-btn {
+            display: flex;
+        }
+        
+        #musicPlayer.minimized~.maximize-btn {
+            display: flex;
+        }
+        /* Animations */
+        
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        .pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        /* Glow effect */
+        
+        .glow {
+            text-shadow: 0 0 10px rgba(99, 102, 241, 0.7);
+        }
+        /* Hover effects */
+        
+        .hover-grow {
+            transition: transform 0.3s ease;
+        }
+        
+        .hover-grow:hover {
+            transform: scale(1.05);
+        }
+        /* زر التكبير */
+        
+        .maximize-btn {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border: none;
+            border-radius: 50%;
+            color: var(--light);
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .maximize-btn:hover {
+            background: var(--primary-light);
+            transform: scale(1.1);
+        }
+        /* تصميم رسالة المطور */
+        
+        .dev-message {
+            padding: 0.7rem 1rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            color: var(--light);
+            background: rgba(239, 68, 68, 0.2);
+            border-left: 3px solid var(--danger);
+            margin-top: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .dev-message::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.1), transparent);
+            animation: shine 2s infinite;
+        }
+        
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+    </style>
 </head>
 
 <body>
-  <audio id="backgroundMusic">
-       <source src="Chris Grey - Let The World Burn (Lyrics).mp3" type="audio/mp3">
-   </audio>
-
-     <div id="controlsContainer">
-       <button id="playButton" class="icon">
-           <i class="fas fa-play"></i>
-       </button>
-       <button id="playlistButton" class="icon">
-           <i class="fas fa-list"></i>
-       </button>
-       <button id="restartButton" class="icon">
-           <i class="fas fa-redo"></i>
-       </button>
-       <button id="volumeButton" class="icon">
-    <i class="fas fa-volume-up"></i>
-</button>
-<input id="volumeSlider" type="range" min="0" max="1" step="0.01" value="1" style="width: 100px;">
-
-   </div>
-
-   <div id="playlist">
-       <ul>
-           <li onclick="changeMusic('Chris Grey - Let The World Burn (Lyrics).mp3')">Let The World Burn</li>
-           <li onclick="changeMusic('Villain「AMV」Anime Mix.mp3')">Villain</li>
-           <li onclick="changeMusic('Fiha aih ya3ny.mp3')">Fiha aih ya3ny</li>
-           <li onclick="changeMusic('Nagets.mp3')">Nagets</li>
-           <li onclick="changeMusic('was3 was3.mp3')">Was3_Was3</li>
-           <li onclick="changeMusic('Heya_Di.mp3')">Motalazmt El Gayar</li>
-           <li onclick="changeMusic('ana_nagm.mp3')">Ana_Nagm</li>
-           <li onclick="changeMusic('metkatf.mp3')">Mtkatf</li>
-           <li onclick="changeMusic('tarantynw.mp3')">Tarantyno</li>
-           <li onclick="changeMusic('robrto.mp3')">Robrto</li>
-           <li onclick="changeMusic('kwstaryka.mp3')">Kostaryka</li>
-       </ul>
-   </div>
-
-   <!-- Timeline -->
-   <div id="timelineContainer">
-       <input id="timeline" type="range" min="0" value="0" step="1">
-   </div>
-
-   <script>
-       const audio = document.getElementById('backgroundMusic');
-       const playButton = document.getElementById('playButton');
-       const playlistButton = document.getElementById('playlistButton');
-       const restartButton = document.getElementById('restartButton');
-       const playlist = document.getElementById('playlist');
-       const timeline = document.getElementById('timeline');
-
-       playButton.addEventListener('click', () => {
-           if (audio.paused) {
-               audio.play();
-               playButton.innerHTML = '<i class="fas fa-pause"></i>';
-           } else {
-               audio.pause();
-               playButton.innerHTML = '<i class="fas fa-play"></i>';
-           }
-       });
-
-       playlistButton.addEventListener('click', () => {
-           playlist.style.display = playlist.style.display === 'block' ? 'none' : 'block';
-       });
-
-       restartButton.addEventListener('click', () => {
-           audio.currentTime = 0;
-           audio.play();
-           playButton.innerHTML = '<i class="fas fa-pause"></i>';
-       });
-
-       function changeMusic(song) {
-           audio.src = song;
-           audio.play();
-           playButton.innerHTML = '<i class="fas fa-pause"></i>';
-           playlist.style.display = 'none';
-       }
-
-       audio.addEventListener('timeupdate', () => {
-
-           timeline.value = (audio.currentTime / audio.duration) * 100;
-       });
-
-       timeline.addEventListener('input', () => {
-
-           audio.currentTime = (timeline.value / 100) * audio.duration;
-       });
-       function searchTeachers() {
-    const input = document.getElementById('searchInput');
-    const filter = input.value.toLowerCase();
-    const studentInfos = document.querySelectorAll('.student-info, .teacher-info, .the-owner');
-
-    studentInfos.forEach(info => {
-        const name = info.querySelector('b').textContent.toLowerCase();
-        if (name.includes(filter)) {
-            info.style.display = '';
-        } else {
-            info.style.display = 'none';
-        }
-    });
-}
-const volumeButton = document.getElementById('volumeButton');
-const volumeSlider = document.getElementById('volumeSlider');
-
-volumeSlider.addEventListener('input', () => {
-    audio.volume = volumeSlider.value;
-});
-
-volumeButton.addEventListener('click', () => {
-    if (audio.volume > 0) {
-        audio.volume = 0;
-        volumeSlider.value = 0;
-        volumeButton.innerHTML = '<i class="fas fa-volume-mute"></i>';
-    } else {
-        audio.volume = 1;
-        volumeSlider.value = 1;
-        volumeButton.innerHTML = '<i class="fas fa-volume-up"></i>';
-    }
-});
-
-   </script>
+    <div class="particles" id="particles"></div>
 
     <div class="container">
-        <h1>Main Page</h1>
-        <input type="text" id="searchInput" class="search-bar" onkeyup="searchTeachers()" placeholder="Bdour 3la Min??">
-        <br>
-        <p>ㅤ</p>
-        <div class="student-info">
-            <img src="Malek Mohab.jpg" alt="Malek Mohab" width="500" height="500">
-            <div>
-                <b>Malek Mohab</b><br>
-                <a href="Malek Mohab.Html">Visit Profile</a>
-            </div>
+        <h1 class="floating">Class Connect</h1>
+
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="searchInput" class="search-bar" onkeyup="searchProfiles()" placeholder="Search for classmates...">
         </div>
 
-        <div class="student-info">
-            <img src="John Emad.jpg" alt="John Emad" width="500" height="500">
-            <div>
-                <b>John Emad</b><br>
-                <a href="John Emad.Html">Visit Profile</a>
+        <div class="profiles-grid">
+            <div class="profile-card student hover-grow">
+                <img src="Malek Mohab.jpg" alt="Malek Mohab" class="profile-img">
+                <div class="profile-info">
+                    <span class="profile-name">Malek Mohab</span>
+                    <a href="Malek Mohab.Html" class="profile-link">
+                        View Profile <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
             </div>
-        </div>
 
-        <div class="student-info">
-            <img src="Firas Mohamed.jpg" alt="Firas Mohamed" width="500" height="500">
-            <div>
-                <b>Firas Mohamed</b><br>
-                <a href="Firas Mohamed.Html">Visit Profile</a>
+            <div class="profile-card student hover-grow">
+                <img src="Salim Mohamed Khaled.jpg" alt="Salim Mohamed Khaled" class="profile-img">
+                <div class="profile-info">
+                    <span class="profile-name">Salim Mohamed Khaled</span>
+                    <a href="Salim Mohamed Khaled.Html" class="profile-link">
+                        View Profile <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
             </div>
-        </div>
 
-        <div class="student-info">
-            <img src="Youssef Islam.jpg" alt="Youssef Islam" width="500" height="500">
-            <div>
-                <b>Youssef Islam</b><br>
-                <a href="Youssef Islam.Html">Visit Profile</a>
+            <div class="profile-card student hover-grow">
+                <img src="John Emad.jpg" alt="John Emad" class="profile-img">
+                <div class="profile-info">
+                    <span class="profile-name">John Emad</span>
+                    <a href="John Emad.Html" class="profile-link">
+                        View Profile <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
             </div>
-        </div>
 
-        <div class="student-info">
-            <img src="Moatasem Mohamed.jpg" alt="Moatasem Mohamed" width="500" height="500">
-            <div>
-                <b>Malek Mohab</b><br>
-                <a href="Moatasem Mohamed.Html">Visit Profile</a>
+            <div class="profile-card student hover-grow">
+                <img src="Firas Mohamed.jpg" alt="Firas Mohamed" class="profile-img">
+                <div class="profile-info">
+                    <span class="profile-name">Feras Mohamed</span>
+                    <a href="Firas Mohamed.Html" class="profile-link">
+                        View Profile <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
             </div>
-        </div>
 
-        <div class="teacher-info">
-          <br>
-            <img src="M.Jose.jpeg" alt="M. José">
-            <div>
-                <b>M. José</b><br>
-                <a href="M.Jose.html">Visit Profile</a>
+            <div class="profile-card student hover-grow">
+                <img src="Youssef Islam.jpg" alt="Youssef Islam" class="profile-img">
+                <div class="profile-info">
+                    <span class="profile-name">Youssef Islam</span>
+                    <a href="Youssef Islam.Html" class="profile-link">
+                        View Profile <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
             </div>
-        </div>
-        <div class="student-info">
-            <img src="Mazen Mohab.jpg" alt="Adam Amir">
-            <div>
-                <b>Mazen Mohab</b><br>
-                <a href="Mazen Mohab.Html">Visit Profile</a>
+
+            <div class="profile-card student hover-grow">
+                <img src="Moatasem Mohamed.jpg" alt="Moatasem Mohamed" class="profile-img">
+                <div class="profile-info">
+                    <span class="profile-name">Moatasem Mohamed</span>
+                    <a href="Moatasem Mohamed.Html" class="profile-link">
+                        View Profile <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="profile-card student hover-grow">
+                <img src="Mazen Mohab.jpg" alt="Mazen Mohab" class="profile-img">
+                <div class="profile-info">
+                    <span class="profile-name">Mazen Mohab</span>
+                    <a href="Mazen Mohab.Html" class="profile-link">
+                        View Profile <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
+
+    <!-- Music Player -->
+    <div id="musicPlayer">
+        <div class="player-header">
+            <div class="player-title">Music Player</div>
+            <button class="control-btn minimize-btn" id="minimizeButton">
+                <i class="fas fa-minus"></i>
+            </button>
+        </div>
+
+
+        <div class="player-info">
+            <i class="fas fa-music" style="color: var(--primary);"></i>
+            <div class="current-song" id="currentSong">Ana nagm</div>
+        </div>
+
+        <div class="player-controls">
+            <button class="control-btn" id="prevButton">
+                <i class="fas fa-step-backward"></i>
+            </button>
+            <button class="control-btn main" id="playButton">
+                <i class="fas fa-play"></i>
+            </button>
+            <button class="control-btn" id="nextButton">
+                <i class="fas fa-step-forward"></i>
+            </button>
+        </div>
+
+        <div class="timeline-container">
+            <div class="timeline" id="timeline">
+                <div class="progress" id="progress"></div>
+            </div>
+            <div class="time-info">
+                <span id="currentTime">0:00</span>
+                <span id="duration">0:00</span>
+            </div>
+        </div>
+
+        <div class="volume-control">
+            <i class="fas fa-volume-up" style="color: var(--primary);"></i>
+            <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.01" value="0.7">
+        </div>
+
+        <div id="playlist">
+            <div class="playlist-item active" data-src="ana_nagm.mp3">Ana Nagm</div>
+            <div class="playlist-item" data-src="metkatf.mp3">Mtkatf</div>
+            <div class="dev-message" data-src="#">مفيش اغاني غير دول لحد دلوقتي</div>
+        </div>
+
+        <audio id="backgroundMusic">
+        <source src="ana_nagm.mp3" type="audio/mp3">
+    </audio>
+
+        <script>
+            // Initialize variables
+            const audio = document.getElementById('backgroundMusic');
+            const playButton = document.getElementById('playButton');
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+            const musicPlayer = document.getElementById('musicPlayer');
+            const currentSong = document.getElementById('currentSong');
+            const playlistItems = document.querySelectorAll('.playlist-item');
+            const progress = document.getElementById('progress');
+            const timeline = document.getElementById('timeline');
+            const currentTimeEl = document.getElementById('currentTime');
+            const durationEl = document.getElementById('duration');
+            const volumeSlider = document.getElementById('volumeSlider');
+            const searchInput = document.getElementById('searchInput');
+            const profileCards = document.querySelectorAll('.profile-card');
+            const minimizeButton = document.getElementById('minimizeButton');
+            const maximizeBtn = document.getElementById('maximizeBtn');
+
+
+            // Create particles
+            function createParticles() {
+                const particlesContainer = document.getElementById('particles');
+                const particleCount = 30;
+
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+
+                    // Random size between 2px and 6px
+                    const size = Math.random() * 4 + 2;
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+
+                    // Random position
+                    particle.style.left = `${Math.random() * 100}%`;
+                    particle.style.top = `${Math.random() * 100}%`;
+
+                    // Random opacity
+                    particle.style.opacity = Math.random() * 0.5 + 0.1;
+
+                    // Random animation
+                    const duration = Math.random() * 20 + 10;
+                    const delay = Math.random() * 5;
+                    particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+
+                    particlesContainer.appendChild(particle);
+                }
+            }
+
+            // Format time (seconds to MM:SS)
+            function formatTime(seconds) {
+                const mins = Math.floor(seconds / 60);
+                const secs = Math.floor(seconds % 60);
+                return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+            }
+
+            // Update progress bar
+            function updateProgress() {
+                const {
+                    currentTime,
+                    duration
+                } = audio;
+                const progressPercent = (currentTime / duration) * 100;
+                progress.style.width = `${progressPercent}%`;
+                currentTimeEl.textContent = formatTime(currentTime);
+
+                if (!isNaN(duration)) {
+                    durationEl.textContent = formatTime(duration);
+                }
+            }
+
+            // Set progress when clicked on timeline
+            function setProgress(e) {
+                const width = this.clientWidth;
+                const clickX = e.offsetX;
+                const duration = audio.duration;
+                audio.currentTime = (clickX / width) * duration;
+            }
+
+            // Change song
+            function changeSong(songSrc, songName) {
+                audio.src = songSrc;
+                audio.play();
+                currentSong.textContent = songName;
+                playButton.innerHTML = '<i class="fas fa-pause"></i>';
+
+                // Update active playlist item
+                playlistItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.dataset.src === songSrc) {
+                        item.classList.add('active');
+                    }
+                });
+            }
+
+            // Play next song
+            function nextSong() {
+                const currentItem = document.querySelector('.playlist-item.active');
+                const nextItem = currentItem.nextElementSibling || playlistItems[0];
+                changeSong(nextItem.dataset.src, nextItem.textContent);
+            }
+
+            // Play previous song
+            function prevSong() {
+                const currentItem = document.querySelector('.playlist-item.active');
+                const prevItem = currentItem.previousElementSibling || playlistItems[playlistItems.length - 1];
+                changeSong(prevItem.dataset.src, prevItem.textContent);
+            }
+
+            // Search profiles
+            function searchProfiles() {
+                const searchTerm = searchInput.value.toLowerCase();
+
+                profileCards.forEach(card => {
+                    const name = card.querySelector('.profile-name').textContent.toLowerCase();
+                    if (name.includes(searchTerm)) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+
+            // Event listeners
+            playButton.addEventListener('click', () => {
+                if (audio.paused) {
+                    audio.play();
+                    playButton.innerHTML = '<i class="fas fa-pause"></i>';
+                } else {
+                    audio.pause();
+                    playButton.innerHTML = '<i class="fas fa-play"></i>';
+                }
+            });
+
+            nextButton.addEventListener('click', nextSong);
+            prevButton.addEventListener('click', prevSong);
+
+
+
+            timeline.addEventListener('click', setProgress);
+
+            audio.addEventListener('timeupdate', updateProgress);
+            audio.addEventListener('ended', nextSong);
+
+            volumeSlider.addEventListener('input', () => {
+                audio.volume = volumeSlider.value;
+            });
+
+            playlistItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    changeSong(item.dataset.src, item.textContent);
+                });
+            });
+
+            // Initialize
+            createParticles();
+            audio.volume = volumeSlider.value;
+            document.addEventListener('DOMContentLoaded', function() {
+                // تعريف المتغيرات الأساسية
+                const maximizeBtn = document.getElementById('maximizeBtn');
+                const minimizeButton = document.getElementById('minimizeButton'); // يجب أن يكون موجوداً في HTML
+                const musicPlayer = document.getElementById('musicPlayer'); // يجب أن يكون موجوداً في HTML
+                const playerHeader = document.querySelector('.player-header');
+                let playerContent = document.querySelector('.player-content');
+
+                // إذا لم يكن هناك محتوى مشغل، ننشئه
+                if (!playerContent && musicPlayer) {
+                    playerContent = document.createElement('div');
+                    playerContent.className = 'player-content';
+
+                    // ننقل جميع العناصر ما عدا الـ header
+                    const children = Array.from(musicPlayer.childNodes);
+                    for (const child of children) {
+                        if (!child.classList || !child.classList.contains('player-header')) {
+                            playerContent.appendChild(child);
+                        }
+                    }
+                    musicPlayer.appendChild(playerContent);
+                }
+
+                // زر التصغير
+                if (minimizeButton && musicPlayer) {
+                    minimizeButton.addEventListener('click', () => {
+                        musicPlayer.classList.add('minimized');
+                        if (maximizeBtn) maximizeBtn.style.display = 'flex';
+                    });
+                }
+
+                // زر التكبير
+                if (maximizeBtn && musicPlayer) {
+                    maximizeBtn.addEventListener('click', () => {
+                        musicPlayer.classList.remove('minimized');
+                        maximizeBtn.style.display = 'none';
+                    });
+                }
+
+                // إخفاء زر التكبير عند التحميل إذا لم يكن المشغل مصغراً
+                if (musicPlayer && !musicPlayer.classList.contains('minimized') && maximizeBtn) {
+                    maximizeBtn.style.display = 'none';
+                }
+            });
+        </script>
+        <button class="maximize-btn" id="maximizeBtn">
+            <i class="fas fa-music"></i>
+        </button>
 </body>
 
 </html>
