@@ -625,6 +625,27 @@
                 transform: translateX(100%);
             }
         }
+        
+        footer {
+            margin-top: 50px;
+            background: linear-gradient(135deg, var(--primary), #ff0000);
+            color: var(--lighter);
+            padding: 25px 0;
+            font-size: 1em;
+            letter-spacing: 1px;
+            text-align: center;
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(80deg, transparent, var(--accent), transparent);
+        }
     </style>
 </head>
 
@@ -632,11 +653,11 @@
     <div class="particles" id="particles"></div>
 
     <div class="container">
-        <h1 class="floating">Class Connect</h1>
+        <h1 class="floating">6D 2025</h1>
 
         <div class="search-container">
             <i class="fas fa-search search-icon"></i>
-            <input type="text" id="searchInput" class="search-bar" onkeyup="searchProfiles()" placeholder="Search for classmates...">
+            <input type="text" id="searchInput" class="search-bar" onkeyup="searchProfiles()" placeholder="Btdour 3la Min ??">
         </div>
 
         <div class="profiles-grid">
@@ -654,7 +675,7 @@
                 <img src="Salim Mohamed Khaled.jpg" alt="Salim Mohamed Khaled" class="profile-img">
                 <div class="profile-info">
                     <span class="profile-name">Salim Mohamed Khaled</span>
-                    <a href="Salim Mohamed Khaled.html" class="profile-link">
+                    <a href="Salim Mohamed Khaled.Html" class="profile-link">
                         View Profile <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
@@ -711,6 +732,18 @@
             </div>
         </div>
     </div>
+    <footer>
+        <div class="container">
+            <p>الويب ليه مخلصش ده بس كان تحديث بسيط </p>
+            <p>+</p>
+
+            <p> تحديث البروفايلات قريب ان شاء الله</p>
+
+            <div class="social-links">
+                <a href="https://github.com/Lucalilo10"><i class="fab fa-github"></i></a>
+
+            </div>
+    </footer>
 
     <!-- Music Player -->
     <div id="musicPlayer">
