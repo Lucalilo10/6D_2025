@@ -1,145 +1,609 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mazen Mohab's Information</title>
+    <title>Mazen Mohab | Cosmic Composer</title>
     <style>
-        body {
-            background-color: #121212;
-            color: #ffffff;
-            font-family: 'Roboto', sans-serif;
+         :root {
+            --primary: #8a2be2;
+            --primary-light: #b57edc;
+            --secondary: #ff8c00;
+            --dark: #0a0a1a;
+            --darker: #050510;
+            --light: #e6f7ff;
+            --gray: #94a3b8;
+            --accent: #00ffff;
+        }
+        
+        * {
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Orbitron', 'Inter', sans-serif;
+            background-color: var(--darker);
+            color: var(--light);
+            line-height: 1.6;
             overflow-x: hidden;
+            min-height: 100vh;
+            background-image: radial-gradient(circle at 20% 30%, rgba(138, 43, 226, 0.15) 0%, transparent 25%), radial-gradient(circle at 80% 70%, rgba(255, 140, 0, 0.15) 0%, transparent 25%);
         }
+        
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration) infinite ease-in-out;
+            opacity: 0;
+        }
+        
+        @keyframes twinkle {
+            0%,
+            100% {
+                opacity: 0;
+            }
+            50% {
+                opacity: var(--opacity);
+            }
+        }
+        
+        .black-hole {
+            position: fixed;
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(1px);
+            box-shadow: 0 0 60px var(--glow-color), inset 0 0 20px rgba(255, 255, 255, 0.1);
+            animation: pulse 8s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 60px var(--glow-color), inset 0 0 20px rgba(255, 255, 255, 0.1);
+            }
+            100% {
+                box-shadow: 0 0 100px var(--glow-color), inset 0 0 30px rgba(255, 255, 255, 0.2);
+            }
+        }
+        
+        .accretion-disk {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            border-top-color: var(--disk-color);
+            animation: rotate-disk linear infinite;
+            opacity: 0.7;
+        }
+        
+        @keyframes rotate-disk {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
         .container {
-            max-width: 600px;
-            margin: auto;
-            padding: 20px;
-            background-color: #1e1e1e;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            margin: 3rem auto;
+            padding: 3rem;
+            background-color: rgba(10, 10, 26, 0.8);
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(138, 43, 226, 0.3);
             position: relative;
-            animation: fadeIn 1s ease-in-out;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            z-index: 1;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.1) 0%, transparent 70%);
+            animation: rotate 30s linear infinite;
+            z-index: -1;
         }
-        h1, h2 {
-            color: #03a9f4;
-            text-align: center;
-            animation: slideIn 1s ease-in-out;
+        
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
         }
-        @keyframes slideIn {
-            from { transform: translateY(-20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+        
+        .content {
+            position: relative;
+            z-index: 2;
         }
-        .info {
-            margin-bottom: 15px;
-            padding: 10px;
-            border-bottom: 1px solid #03a9f4;
-            transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+        
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(10, 10, 26, 0.8);
+            border: 1px solid var(--primary);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.5);
+            transition: all 0.3s ease;
+            z-index: 100;
+            color: var(--primary);
         }
-        .info:hover {
-            background-color: #333;
-            transform: rotate(-1deg);
-            color: #ffeb3b;
-        }
-        .label {
-            font-weight: bold;
-            color: #03a9f4;
-            display: inline-block;
-            width: 150px;
-            transition: color 0.3s ease;
-        }
-        .label:hover {
-            color: #ffeb3b;
-        }
-        ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
-        ul li {
-            background-color: #333;
-            padding: 5px;
-            margin: 5px 0;
-            border-radius: 5px;
-            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        ul li:hover {
-            background-color: #444;
-            transform: translateX(10px) rotate(-2deg);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-        }
-        a {
-            text-decoration: none;
-            color: #03a9f4;
-            transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
-        }
-        a:hover {
-            text-decoration: underline;
-            color: #ffeb3b;
-            text-shadow: 0 0 10px #ffeb3b;
+        
+        .theme-toggle:hover {
             transform: scale(1.1);
+            box-shadow: 0 0 20px var(--primary);
         }
-        .image-container {
+        
+        .theme-toggle i {
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .profile-header {
             text-align: center;
-            margin-bottom: 20px;
-            animation: fadeIn 1s ease-in-out;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out;
+            position: relative;
         }
-        .image-container img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-            border: 5px solid #03a9f4;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, filter 0.3s ease;
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        .image-container img:hover {
-            transform: scale(1.05) rotate(2deg);
-            filter: brightness(1.2);
+        
+        .avatar-container {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 1.5rem;
+            perspective: 1000px;
+        }
+        
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary);
+            box-shadow: 0 0 30px var(--primary), 0 0 60px rgba(138, 43, 226, 0.3);
+            transition: all 0.5s ease;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .avatar:hover {
+            transform: scale(1.05) rotateY(20deg);
+            box-shadow: 0 0 40px var(--primary), 0 0 80px rgba(138, 43, 226, 0.5);
+            border-color: var(--accent);
+        }
+        
+        .avatar-ring {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 2px dashed var(--accent);
+            border-radius: 50%;
+            animation: rotate-ring 20s linear infinite;
+            opacity: 0.7;
+        }
+        
+        @keyframes rotate-ring {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+            letter-spacing: 1px;
+        }
+        
+        .tagline {
+            color: var(--accent);
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .info-card {
+            background: rgba(20, 20, 40, 0.6);
+            border-radius: 15px;
+            padding: 1.8rem;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            animation: fadeIn 0.8s ease-out forwards;
+            animation-delay: calc(var(--order) * 0.1s);
+            opacity: 0;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+        
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            z-index: -1;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .info-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(138, 43, 226, 0.3);
+            border-color: var(--accent);
+        }
+        
+        .info-label {
+            font-size: 1rem;
+            color: var(--accent);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+        
+        .info-label i {
+            font-size: 1.2rem;
+        }
+        
+        .info-value {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--light);
+            padding-left: 2rem;
+        }
+        
+        .favorites-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+        
+        .favorites-list li {
+            padding: 0.7rem 0;
+            border-bottom: 1px dashed rgba(138, 43, 226, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: all 0.3s ease;
+        }
+        
+        .favorites-list li:hover {
+            color: var(--accent);
+            transform: translateX(10px);
+        }
+        
+        .favorites-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .favorites-list li::before {
+            content: '✧';
+            color: var(--secondary);
+            font-size: 1.2rem;
+        }
+        
+        .music-visualizer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 3px;
+            z-index: 0;
+            opacity: 0.3;
+        }
+        
+        .bar {
+            width: 8px;
+            background: linear-gradient(to top, var(--primary), var(--accent));
+            border-radius: 5px 5px 0 0;
+            animation: equalize 1.5s infinite ease-in-out;
+            animation-delay: calc(var(--i) * 0.1s);
+        }
+        
+        @keyframes equalize {
+            0%,
+            100% {
+                height: 20%;
+            }
+            50% {
+                height: 90%;
+            }
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .social-link {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(20, 20, 40, 0.8);
+            color: var(--light);
+            font-size: 1.8rem;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(138, 43, 226, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.3) 0%, transparent 70%);
+            animation: rotate 15s linear infinite;
+            z-index: -1;
+        }
+        
+        .social-link:hover {
+            transform: translateY(-10px) scale(1.1);
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 15px 30px rgba(138, 43, 226, 0.5);
+            border-color: var(--accent);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 1.5rem;
+                padding: 2rem;
+            }
+            h1 {
+                font-size: 2.2rem;
+            }
+            .avatar-container {
+                width: 150px;
+                height: 150px;
+            }
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
+    <div class="stars" id="stars"></div>
+    <div class="black-holes" id="blackHoles"></div>
+    <div class="music-visualizer" id="visualizer"></div>
+
+    <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
     <div class="container">
-        <div class="image-container">
-            <img src="Mazen Mohab.jpg" alt="Mazen Mohab" width="400">
-        </div>
-        <h1>Mazen Mohab's Information</h1>
-        <div class="info">
-            <span class="label">Name:</span> Mazen Mohab
-        </div>
-        <div class="info">
-            <span class="label">Age:</span> 12
-        </div>
-        <div class="info">
-            <span class="label">Hobbies:</span> Playing songs
-        </div>
-        <div class="info">
-            <span class="label">Favorite Sport:</span> Hawagz
-        </div>
-        <div class="info">
-            <span class="label">Talent:</span> Composing songs
-        </div>
-        <div class="info">
-            <span class="label">Favorite Person in Class:</span> 7amza
-        </div>
-        <div class="info">
-            <span class="label">Favorite Person in General:</span> My mom
-        </div>
-        <div class="info">
-            <span class="label">Favorite Teachers:</span>
-            <ul>
-              <li>Madame.2la2/Fr</li>
-            </ul>
-        </div>
-        <div class="info">
-            <span class="label">Favorite Subjects:</span> Art and science
+        <div class="content">
+            <div class="profile-header">
+                <div class="avatar-container">
+                    <img src="Mazen Mohab.jpg" alt="Mazen Mohab" class="avatar" onerror="this.src='https://via.placeholder.com/150'">
+                    <div class="avatar-ring"></div>
+                </div>
+                <h1>MAZEN MOHAB</h1>
+                <p class="tagline"></p>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card" style="--order: 1">
+                    <div class="info-label">
+                        <i class="fas fa-user-astronaut"></i> SPACE PROFILE
+                    </div>
+                    <div class="info-value">12 year old</div>
+                </div>
+
+                <div class="info-card" style="--order: 2">
+                    <div class="info-label">
+                        <i class="fas fa-music"></i> Hobbies
+                    </div>
+                    <div class="info-value">Playing songs</div>
+                </div>
+
+                <div class="info-card" style="--order: 3">
+                    <div class="info-label">
+                        <i class="fas fa-heart"></i> GALACTIC HERO
+                    </div>
+                    <div class="info-value">My mom</div>
+                </div>
+
+                <div class="info-card" style="--order: 4">
+                    <div class="info-label">
+                        <i class="fas fa-running"></i> SPORT ACTIVITY
+                    </div>
+                    <div class="info-value">Hawagz</div>
+                </div>
+
+                <div class="info-card" style="--order: 5">
+                    <div class="info-label">
+                        <i class="fas fa-atom"></i> ACADEMIC FAVORITES
+                    </div>
+                    <div class="info-value">Art & Science </div>
+                </div>
+
+                <div class="info-card" style="--order: 6">
+                    <div class="info-label">
+                        <i class="fas fa-chalkboard-teacher"></i> FAVORITE MENTOR
+                    </div>
+                    <ul class="favorites-list">
+                        <li>Madame.2la2 : Fr </li>
+                    </ul>
+                </div>
+
+                <div class="info-card" style="--order: 7">
+                    <div class="info-label">
+                        <i class="fas fa-user-friends"></i> Fav Person in Class
+                    </div>
+                    <div class="info-value">7amza </div>
+                </div>
+
+                <div class="info-card" style="--order: 8">
+                    <div class="info-label">
+                        <i class="fas fa-guitar"></i> Talent
+                    </div>
+                    <div class="info-value">Composing songs</div>
+                </div>
+            </div>
+
         </div>
     </div>
+
+    <script>
+        // Create stars
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 200; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.width = `${Math.random() * 3}px`;
+            star.style.height = star.style.width;
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.setProperty('--duration', `${Math.random() * 5 + 3}s`);
+            star.style.setProperty('--opacity', Math.random());
+            starsContainer.appendChild(star);
+        }
+
+        // Create black holes
+        const blackHolesContainer = document.getElementById('blackHoles');
+        const positions = [{
+            top: '10%',
+            left: '15%',
+            size: '150px',
+            glow: 'rgba(138, 43, 226, 0.5)',
+            disk: 'rgba(0, 255, 255, 0.7)'
+        }, {
+            top: '70%',
+            left: '80%',
+            size: '100px',
+            glow: 'rgba(255, 140, 0, 0.5)',
+            disk: 'rgba(255, 20, 147, 0.7)'
+        }, {
+            top: '30%',
+            left: '85%',
+            size: '80px',
+            glow: 'rgba(0, 255, 255, 0.5)',
+            disk: 'rgba(138, 43, 226, 0.7)'
+        }];
+
+        positions.forEach(pos => {
+            const hole = document.createElement('div');
+            hole.className = 'black-hole';
+            hole.style.width = pos.size;
+            hole.style.height = pos.size;
+            hole.style.top = pos.top;
+            hole.style.left = pos.left;
+            hole.style.setProperty('--glow-color', pos.glow);
+            blackHolesContainer.appendChild(hole);
+
+            // Create accretion disk
+            const disk = document.createElement('div');
+            disk.className = 'accretion-disk';
+            disk.style.width = `calc(${pos.size} * 1.5)`;
+            disk.style.height = `calc(${pos.size} * 1.5)`;
+            disk.style.top = `calc(${pos.top} - (${pos.size} * 0.25))`;
+            disk.style.left = `calc(${pos.left} - (${pos.size} * 0.25))`;
+            disk.style.setProperty('--disk-color', pos.disk);
+            disk.style.animationDuration = `${Math.random() * 20 + 10}s`;
+            blackHolesContainer.appendChild(disk);
+        });
+
+        // Create music visualizer
+        const visualizer = document.getElementById('visualizer');
+        for (let i = 0; i < 50; i++) {
+            const bar = document.createElement('div');
+            bar.className = 'bar';
+            bar.style.setProperty('--i', i);
+            bar.style.height = `${Math.random() * 80 + 20}%`;
+            visualizer.appendChild(bar);
+        }
+
+        // Animate cards on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        document.querySelectorAll('.info-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
 </body>
+
 </html>
