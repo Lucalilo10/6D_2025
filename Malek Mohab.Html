@@ -1,145 +1,497 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Malek Mohab's Information</title>
+    <title>Malek Mohab's Awesome Profile</title>
     <style>
+         :root {
+            --primary: #00d4ff;
+            --secondary: #ff2d75;
+            --accent: #ffeb3b;
+            --dark: #121212;
+            --darker: #0a0a0a;
+            --light: #ffffff;
+            --card-bg: #1e1e1e;
+        }
+        
         body {
-            background-color: #121212;
-            color: #ffffff;
-            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            color: var(--light);
+            font-family: 'Poppins', sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            min-height: 100vh;
             overflow-x: hidden;
         }
+        
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration, 3s) infinite ease-in-out;
+        }
+        
+        @keyframes twinkle {
+            0%,
+            100% {
+                opacity: 0.2;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+        
         .container {
-            max-width: 600px;
-            margin: auto;
-            padding: 20px;
-            background-color: #1e1e1e;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             position: relative;
-            animation: fadeIn 1s ease-in-out;
+            overflow: hidden;
+            animation: fadeIn 1s ease-out;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            z-index: -1;
+        }
+        
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        h1, h2 {
-            color: #03a9f4;
+        
+        h1,
+        h2 {
+            color: var(--primary);
             text-align: center;
-            animation: slideIn 1s ease-in-out;
+            margin-bottom: 25px;
+            position: relative;
+            display: inline-block;
         }
-        @keyframes slideIn {
-            from { transform: translateY(-20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-top: 0;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: titleGlow 2s infinite alternate;
         }
-        .info {
-            margin-bottom: 15px;
-            padding: 10px;
-            border-bottom: 1px solid #03a9f4;
-            transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+        
+        @keyframes titleGlow {
+            0% {
+                text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+            }
+            100% {
+                text-shadow: 0 0 20px rgba(0, 212, 255, 0.8), 0 0 30px rgba(0, 212, 255, 0.5);
+            }
         }
-        .info:hover {
-            background-color: #333;
-            transform: rotate(-1deg);
-            color: #ffeb3b;
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            border-radius: 3px;
         }
+        
+        .image-container {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            perspective: 1000px;
+        }
+        
+        .image-container img {
+            max-width: 250px;
+            height: auto;
+            border-radius: 15px;
+            border: 3px solid var(--primary);
+            box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3);
+            transition: all 0.5s ease;
+            transform-style: preserve-3d;
+        }
+        
+        .image-container:hover img {
+            transform: rotateY(10deg) scale(1.05);
+            box-shadow: 0 15px 35px rgba(0, 212, 255, 0.5);
+            filter: brightness(1.1) contrast(1.1);
+        }
+        
+        .image-container::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 20px;
+            background: radial-gradient(ellipse at center, rgba(0, 212, 255, 0.4) 0%, transparent 70%);
+            filter: blur(10px);
+            z-index: -1;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .info-card {
+            background: rgba(30, 30, 30, 0.7);
+            border-radius: 10px;
+            padding: 15px;
+            border-left: 3px solid var(--primary);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 20px rgba(0, 212, 255, 0.2);
+            border-left: 3px solid var(--accent);
+            background: rgba(40, 40, 40, 0.8);
+        }
+        
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 60%, rgba(0, 212, 255, 0.1) 100%);
+            z-index: -1;
+        }
+        
         .label {
             font-weight: bold;
-            color: #03a9f4;
-            display: inline-block;
-            width: 150px;
-            transition: color 0.3s ease;
+            color: var(--primary);
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-        .label:hover {
-            color: #ffeb3b;
+        
+        .value {
+            color: var(--light);
+            font-size: 1.1rem;
         }
+        
         ul {
             list-style-type: none;
             padding-left: 0;
+            margin: 0;
         }
+        
         ul li {
-            background-color: #333;
-            padding: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 12px;
             margin: 5px 0;
             border-radius: 5px;
-            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 25px;
         }
+        
+        ul li::before {
+            content: '★';
+            position: absolute;
+            left: 8px;
+            color: var(--accent);
+        }
+        
         ul li:hover {
-            background-color: #444;
-            transform: translateX(10px) rotate(-2deg);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px);
         }
-        a {
-            text-decoration: none;
-            color: #03a9f4;
-            transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
+        
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
         }
-        a:hover {
-            text-decoration: underline;
-            color: #ffeb3b;
-            text-shadow: 0 0 10px #ffeb3b;
-            transform: scale(1.1);
-        }
-        .image-container {
-            text-align: center;
-            margin-bottom: 20px;
-            animation: fadeIn 1s ease-in-out;
-        }
-        .image-container img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-            border: 5px solid #03a9f4;
+        
+        .badge {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, filter 0.3s ease;
+            animation: pulse 2s infinite;
         }
-        .image-container img:hover {
-            transform: scale(1.05) rotate(2deg);
-            filter: brightness(1.2);
+        
+        @keyframes pulse {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: var(--light);
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+        
+        .social-icon:hover {
+            background: var(--primary);
+            transform: translateY(-5px) rotate(10deg);
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
+            color: var(--dark);
+        }
+        
+        .floating-objects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .floating-obj {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.3;
+            filter: blur(1px);
+            animation: float linear infinite;
+        }
+        
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0) translateX(0);
+            }
+            25% {
+                transform: translateY(-20px) translateX(10px);
+            }
+            50% {
+                transform: translateY(0) translateX(20px);
+            }
+            75% {
+                transform: translateY(20px) translateX(10px);
+            }
+        }
+        
+        .achievement {
+            position: relative;
+            padding: 15px;
+            margin: 15px 0;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 10px;
+            border-left: 3px solid var(--accent);
+        }
+        
+        .achievement::after {
+            content: '🏆';
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px;
+                padding: 20px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
+
 <body>
+    <div class="stars" id="stars"></div>
+    <div class="floating-objects" id="floatingObjects"></div>
+
     <div class="container">
         <div class="image-container">
             <img src="Malek Mohab.jpg" alt="Malek Mohab" width="400">
         </div>
-        <h1>Malek Mohab's Information</h1>
-        <div class="info">
-            <span class="label">Name:</span> Malek Mohab
+
+        <h1>Malek Mohab</h1>
+
+        <div class="badges">
+            <div class="badge">⚽ Football Pro</div>
+            <div class="badge">🧮 Math Genius</div>
+            <div class="badge">🦘 High Jumper</div>
         </div>
-        <div class="info">
-            <span class="label">Age:</span> 12
+
+        <div class="info-grid">
+            <div class="info-card">
+                <span class="label">Full Name</span>
+                <div class="value">Malek Mohab</div>
+            </div>
+
+            <div class="info-card">
+                <span class="label">Age</span>
+                <div class="value">12 years </div>
+            </div>
+
+
+
+            <div class="info-card">
+                <span class="label">Passion</span>
+                <div class="value">Football & Sports</div>
+            </div>
+
+            <div class="info-card">
+                <span class="label">Favorite Sport</span>
+                <div class="value">Al3ab kowa ⚽</div>
+            </div>
+
+            <div class="info-card">
+                <span class="label">Academic Strength</span>
+                <div class="value">Mathematics</div>
+            </div>
+
+            <div class="info-card">
+                <span class="label">Class Buddy</span>
+                <div class="value">Moatasem 👨‍🎓</div>
+            </div>
+
+            <div class="info-card">
+                <span class="label">Role Model</span>
+                <div class="value">7amza A7med 🏆</div>
+            </div>
         </div>
-        <div class="info">
-            <span class="label">Hobbies:</span> Playing football
+
+        <div class="achievement">
+            <strong>Favorite Teacher:</strong> M.Mohab Mohab
         </div>
-        <div class="info">
-            <span class="label">Favorite Sport:</span> Al3ab kowa
-        </div>
-        <div class="info">
-            <span class="label">Talent:</span> Jumping high
-        </div>
-        <div class="info">
-            <span class="label">Favorite Person in Class:</span> Moatasem
-        </div>
-        <div class="info">
-            <span class="label">Favorite Person in General:</span> 7amza A7med
-        </div>
-        <div class="info">
-            <span class="label">Favorite Teachers:</span>
-            <ul>
-              <li>M.Mohab Mohab/Maths</li>
-            </ul>
-        </div>
-        <div class="info">
-            <span class="label">Favorite Subjects:</span> Math
-        </div>
+
+
     </div>
+
+    <script>
+        // Create stars
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.width = `${Math.random() * 3}px`;
+            star.style.height = star.style.width;
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.opacity = Math.random();
+            star.style.setProperty('--duration', `${2 + Math.random() * 3}s`);
+            starsContainer.appendChild(star);
+        }
+
+        // Create floating objects
+        const floatingContainer = document.getElementById('floatingObjects');
+        const shapes = ['circle', 'triangle', 'square'];
+        const colors = ['rgba(0, 212, 255, 0.3)', 'rgba(255, 45, 117, 0.3)', 'rgba(255, 235, 59, 0.3)'];
+
+        for (let i = 0; i < 15; i++) {
+            const obj = document.createElement('div');
+            obj.classList.add('floating-obj');
+
+            const size = 10 + Math.random() * 40;
+            obj.style.width = `${size}px`;
+            obj.style.height = `${size}px`;
+            obj.style.left = `${Math.random() * 100}%`;
+            obj.style.top = `${Math.random() * 100}%`;
+            obj.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+            const duration = 20 + Math.random() * 40;
+            const delay = Math.random() * 10;
+            obj.style.animation = `float ${duration}s ${delay}s infinite`;
+
+            floatingContainer.appendChild(obj);
+        }
+
+        // Add interactive hover effect to container
+        const container = document.querySelector('.container');
+        container.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+
+            container.style.transform = `perspective(1000px) rotateX(${(y - 0.5) * 5}deg) rotateY(${(x - 0.5) * -5}deg)`;
+        });
+
+        container.addEventListener('mouseleave', () => {
+            container.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+        });
+    </script>
 </body>
+
 </html>
